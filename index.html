@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clipboard History & Code Snippet Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Code Manager</h1>
+            <nav class="tab-nav">
+                <button class="tab-btn active" data-tab="snippets">Snippets</button>
+                <button class="tab-btn" data-tab="clipboard">Clipboard History</button>
+            </nav>
+        </header>
+
+        <main class="app-main">
+            <!-- Snippets Section -->
+            <section id="snippets-tab" class="tab-panel active">
+                <div class="panel-header">
+                    <h2>Code Snippets</h2>
+                    <button id="add-snippet-btn" class="btn btn-primary">Add Snippet</button>
+                </div>
+
+                <div id="snippet-form-container" class="form-container hidden">
+                    <form id="snippet-form" class="snippet-form">
+                        <input type="hidden" id="snippet-id">
+                        <div class="form-group">
+                            <label for="snippet-title">Title</label>
+                            <input type="text" id="snippet-title" placeholder="e.g., Flexbox Centering" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="snippet-language">Language / Tag</label>
+                            <select id="snippet-language" required>
+                                <option value="">Select language</option>
+                                <option value="HTML">HTML</option>
+                                <option value="CSS">CSS</option>
+                                <option value="JavaScript">JavaScript</option>
+                                <option value="Bash">Bash</option>
+                                <option value="SQL">SQL</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="snippet-content">Code Content</label>
+                            <textarea id="snippet-content" rows="10" placeholder="Paste your code here..." required></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="save-snippet-btn">Save Snippet</button>
+                            <button type="button" class="btn btn-secondary" id="cancel-snippet-btn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="search-container">
+                    <input type="text" id="snippet-search" placeholder="Search snippets by title or language...">
+                </div>
+
+                <div id="snippet-list" class="snippet-list">
+                    <!-- Snippets will be rendered here -->
+                </div>
+            </section>
+
+            <!-- Clipboard History Section -->
+            <section id="clipboard-tab" class="tab-panel">
+                <div class="panel-header">
+                    <h2>Clipboard History</h2>
+                    <button id="clear-history-btn" class="btn btn-danger">Clear All History</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="clipboard-input">Paste here to add to history</label>
+                    <textarea id="clipboard-input" rows="5" placeholder="Paste text or code here..."></textarea>
+                </div>
+
+                <div id="clipboard-list" class="clipboard-list">
+                    <!-- Clipboard history will be rendered here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
