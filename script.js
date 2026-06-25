@@ -1,6 +1,7 @@
 (function () {
     const STORAGE_KEY_SNIPPETS = 'code_manager_snippets';
     const STORAGE_KEY_HISTORY = 'code_manager_history';
+    const STORAGE_KEY_DARK = 'code_manager_dark';
     const MAX_HISTORY = 20;
 
     let snippets = [];
@@ -24,6 +25,7 @@
     const snippetSearch = $('#snippet-search');
     const clipboardInput = $('#clipboard-input');
     const clearHistoryBtn = $('#clear-history-btn');
+    const darkToggle = $('#dark-toggle');
 
     function loadData() {
         try {
@@ -57,6 +59,28 @@
         } catch (e) {
             showToast('Storage limit reached. Could not save clipboard history.');
         }
+    }
+
+    function applyDarkMode(enabled) {
+        document.body.classList.toggle('dark-mode', enabled);
+        darkToggle.textContent = enabled ? '\u2600' : '\u263E';
+    }
+
+    function toggleDarkMode() {
+        const enabled = !document.body.classList.contains('dark-mode');
+        applyDarkMode(enabled);
+        try {
+            localStorage.setItem(STORAGE_KEY_DARK, JSON.stringify(enabled));
+        } catch {}
+    }
+
+    function loadDarkMode() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY_DARK);
+            if (raw !== null) {
+                applyDarkMode(JSON.parse(raw) === true);
+            }
+        } catch {}
     }
 
     function showToast(message) {
@@ -299,6 +323,8 @@
 
     snippetSearch.addEventListener('input', renderSnippets);
 
+    darkToggle.addEventListener('click', toggleDarkMode);
+
     $$('.tab-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
             $$('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -311,5 +337,6 @@
     });
 
     loadData();
+    loadDarkMode();
     renderAll();
 })();
